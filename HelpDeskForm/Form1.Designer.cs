@@ -51,12 +51,12 @@
             // 
             // cmbUsers
             // 
+            cmbUsers.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbUsers.FormattingEnabled = true;
             cmbUsers.Location = new Point(6, 22);
             cmbUsers.Name = "cmbUsers";
             cmbUsers.Size = new Size(121, 23);
             cmbUsers.TabIndex = 1;
-            cmbUsers.Text = "Select Yourself";
             cmbUsers.SelectedIndexChanged += cmbUsers_SelectedIndexChanged;
             // 
             // btnNewUser
@@ -106,7 +106,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(289, 104);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "Form1";

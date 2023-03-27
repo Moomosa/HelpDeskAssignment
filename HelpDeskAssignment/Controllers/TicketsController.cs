@@ -53,9 +53,7 @@ namespace HelpDeskAssignment.Controllers
             var tickets = await _context.Tickets.Include(t => t.TicketSubmitter).FirstOrDefaultAsync(t => t.TicketID == id);
 
             if (tickets == null)
-            {
                 return NotFound();
-            }
 
             return tickets;
         }
@@ -115,6 +113,5 @@ namespace HelpDeskAssignment.Controllers
             }
             return NoContent();
         }
-
     }
 }

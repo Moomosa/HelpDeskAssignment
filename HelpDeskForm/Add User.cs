@@ -47,6 +47,7 @@ namespace HelpDeskForm
             }
             else
             {
+                //This is a great debugging line
                 MessageBox.Show("Error adding user." + result.ReasonPhrase);
             }
         }

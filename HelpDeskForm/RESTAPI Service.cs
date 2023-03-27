@@ -28,14 +28,12 @@ namespace HelpDeskForm
             var payload = new StringContent(JsonConvert.SerializeObject(u), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.PostAsync("/api/Auth/login", payload);
             return response;
-
         }
 
-        public async Task<HttpResponseMessage> GetAllUsers()
-        {
-            HttpResponseMessage response = await _httpClient.GetAsync("/api/Users");
-            return response;
-        }
+        public async Task<HttpResponseMessage> GetAllUsers() => await _httpClient.GetAsync("/api/Users");
+        //{
+        //    return await _httpClient.GetAsync("/api/Users");
+        //}
 
         public async Task<int> GetTotalTicketCount()
         {
@@ -70,7 +68,6 @@ namespace HelpDeskForm
             return (ticketList, totalTickets);
         }
 
-
         //Endpoint from our swagger api
         //Token retrieved previously
         public async Task<HttpResponseMessage> GetProtectedPage(string endpoint, string token)
@@ -84,19 +81,16 @@ namespace HelpDeskForm
         {
             var submitter = await _httpClient.GetAsync($"api/Users/{ticket.TicketSubmitterID}");
             if (!submitter.IsSuccessStatusCode)
-            {
                 return submitter;
-            }
+
             var submitterJson = await submitter.Content.ReadAsStringAsync();
             var submitterObj = JsonConvert.DeserializeObject<HelpDeskModelProject.User>(submitterJson);
-
             ticket.TicketSubmitter = submitterObj;
 
             var json = JsonConvert.SerializeObject(ticket);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _httpClient.PostAsync("api/Tickets", content);
-
             return response;
         }
 
@@ -106,7 +100,6 @@ namespace HelpDeskForm
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _httpClient.PostAsync("api/Users", content);
-
             return response;
         }
 
@@ -116,7 +109,6 @@ namespace HelpDeskForm
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _httpClient.PutAsync("api/Tickets", content);
-
             return response;
         }
     }

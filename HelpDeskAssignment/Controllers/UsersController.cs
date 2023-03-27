@@ -23,22 +23,20 @@ namespace HelpDeskAssignment.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
-        {
-            return await _context.User.ToListAsync();
-        }
+        public async Task<ActionResult<IEnumerable<User>>> GetUser() => await _context.User.ToListAsync();
+        //{
+        //    return await _context.User.ToListAsync();
+        //}
 
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _context.User.FindAsync(id);
-
             if (user == null)
             {
                 return NotFound();
             }
-
             return user;
         }
 
@@ -80,7 +78,6 @@ namespace HelpDeskAssignment.Controllers
         {
             _context.User.Add(user);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetUser", new { id = user.ID }, user);
         }
 

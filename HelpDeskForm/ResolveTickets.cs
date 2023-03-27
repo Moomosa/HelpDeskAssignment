@@ -20,6 +20,7 @@ namespace HelpDeskForm
         List<Tickets> TicketList;
         int selectedTicketId;
         bool seeAll;
+
         public ResolveTickets(int userID, List<Tickets> ticketList)
         {
             InitializeComponent();
@@ -63,7 +64,6 @@ namespace HelpDeskForm
                     item.SubItems.Add(ticket.TimeResolved != null ? ticket.TimeResolved.ToString() : "");
                 }
                 lsvTickets.Items.Add(item);
-
             }
         }
 
@@ -95,11 +95,9 @@ namespace HelpDeskForm
                     MessageBox.Show("Ticket updated successfully.");
                     Close();
                 }
-                else
-                    MessageBox.Show("Error adding ticket." + result.ReasonPhrase);
+                else MessageBox.Show("Error adding ticket." + result.ReasonPhrase);
             }
-            else
-                MessageBox.Show("Please select a ticket.");
+            else MessageBox.Show("Please select a ticket.");
         }
 
         private void lsvTickets_SelectedIndexChanged(object sender, EventArgs e)
@@ -112,13 +110,9 @@ namespace HelpDeskForm
             Tickets selectedTicket = TicketList.FirstOrDefault(t => t.TicketID == selectedTicketId);
 
             if (selectedTicket != null && selectedTicket.Resolved)
-            {
                 grpRes.Visible = false;
-            }
             else
-            {
                 grpRes.Visible = true;
-            }
         }
     }
 }

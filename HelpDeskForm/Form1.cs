@@ -13,16 +13,16 @@ namespace HelpDeskForm
 
         public Form1()
         {
-            //https://localhost:7059/  This is the database location
             InitializeComponent();
-
-            //All this to load all users into the ComboBox
             LoadDataAsync();
         }
 
         private async void LoadDataAsync()
         {
+            //https://localhost:7059/  This is my database location
             RESTAPI_Service service = new("https://localhost:7059/");
+
+            //All this to load all users into the ComboBox
             var a = await service.GetAllUsers();
             var stringMsg = a.Content.ReadAsStringAsync();
             UserList = JsonConvert.DeserializeObject<List<User>>(stringMsg.Result);
@@ -44,22 +44,17 @@ namespace HelpDeskForm
             while (retrieved < totalTickets);
             TicketList.Sort((t1, t2) => t1.TicketID.CompareTo(t2.TicketID));
 
-
-            //var b = await service.GetAllTickets();
-            //var stringMessage = b.Content.ReadAsStringAsync();
-            //TicketList = JsonConvert.DeserializeObject<List<Tickets>>(stringMessage.Result);
-
             cmbUsers.SelectedIndexChanged -= cmbUsers_SelectedIndexChanged;
             cmbUsers.DisplayMember = "Username";
             cmbUsers.ValueMember = "ID";
             cmbUsers.DataSource = UserList;
             cmbUsers.SelectedValue = -1;
             cmbUsers.SelectedIndexChanged += cmbUsers_SelectedIndexChanged;
-
         }
 
         private void btnNewTicket_Click(object sender, EventArgs e)
         {
+            //This if shouldn't ever be false cause the button is disabled if userId != -1
             if (userId != -1)
             {
                 NewTicket newTicketForm = new(userId);
@@ -91,20 +86,19 @@ namespace HelpDeskForm
 
         private async void button_Click(object sender, EventArgs e)
         {
-            //This is the example to get all users.
+            //This is the example to get all users. There's no reference to this
             //Use this style for all use of the database
 
             RESTAPI_Service service = new("https://localhost:7059/");
             var a = await service.GetAllUsers();
             var stringMsg = a.Content.ReadAsStringAsync();
             var token = JsonConvert.DeserializeObject<List<User>>(stringMsg.Result);
-
         }
 
         private void btnTickRes_Click(object sender, EventArgs e)
         {
             ResolveTickets resTick = new(userId, TicketList);
-            resTick.ShowDialog();
+            resTick.ShowDialog();            
         }
     }
 }
